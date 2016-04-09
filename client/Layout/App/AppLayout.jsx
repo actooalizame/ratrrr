@@ -4,6 +4,7 @@ AppLayout = React.createClass({
 			<div className="app-wrapper">
 					
 					<div className="ui grid container">
+					
 						{this.props.content}
 					</div>
       		

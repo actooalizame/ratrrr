@@ -9,35 +9,36 @@ SingleRat = React.createClass({
 		}
 	},
 
+
 	addDali(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId;
-		Meteor.call('addDali', ratId);
 		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addDali', ratId);
 	},
 	addYes(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId;
-		Meteor.call('addYes', ratId);
 		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addYes', ratId);		
 	},
 	addWtf(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId;
-		Meteor.call('addWtf', ratId);
 		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addWtf', ratId);
 	},
 	addWMeh(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId;
-		Meteor.call('addWMeh', ratId);
 		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addWMeh', ratId);
 	},
 	addLol(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId;
-		Meteor.call('addLol', ratId);
 		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addLol', ratId);
 	},
 
 
@@ -66,10 +67,32 @@ SingleRat = React.createClass({
 		let link = 'https://twitter.com/Dig_it_Bitch_/status/'+this.props.rat.ratId,
 				hideVoted = this.hideVoted(),
 				showOwnVote = this.showOwnVote();
+				
 		return(
 			<div className="ui segment">
+				<div className="ui left close rail">
+			    <div className="ui segment">
+			      <div className="ui feed">
+						  <div className="event">
+						    <div className="label">
+						      <img src="/images/avatar/small/elliot.jpg" />
+						    </div>
+						    <div className="content">
+						      <div className="summary">
+						        <a className="user">
+						          Elliot Fu
+						        </a> added you as a friend
+						      </div>
+						    </div>
+						  </div>
+						</div>
+			    </div>
+			  </div>
+				<div className="ui right close rail">
+			    <Chart rat={this.props.rat}/>
+			  </div>
 				<div className="ui cards">
-				  <div className="card">
+				  <div className="card" id="ratCard">
 				    <div className="content">
 				      <img className="right floated mini ui image" src={this.props.rat.userImg} />
 				      <div className="header">
@@ -83,23 +106,27 @@ SingleRat = React.createClass({
 				      </div>
 				    </div>
 				    <div className="extra content ui segment">
-				      <div className="card-buttons ui small icon buttons" style={hideVoted}>
-				        <button className="ui violet basic button" onClick={this.addDali}>DALÍ</button>
-							  <button className="ui teal basic button" onClick={this.addYes}>.YesSir.</button>
-							  <button className="ui orange basic button" onClick={this.addLol}>LOL</button>
-							  <button className="ui olive basic button" onClick={this.addWMeh}>- meh -</button>
-							  <button className="ui red basic button" onClick={this.addWtf}>WTF?!</button>
-				      </div>
-				      <div style={showOwnVote}>
-				      	<i className="check icon"></i>121 Votes
-				      </div>
-				      
+				    {this.data.userId ?
+				    	<div>
+					    	 <div className="card-buttons ui small icon buttons" style={hideVoted}>
+					        <button className="ui violet basic button" onClick={this.addDali}>DALÍ</button>
+								  <button className="ui teal basic button" onClick={this.addYes}>.YesSir.</button>
+								  <button className="ui orange basic button" onClick={this.addLol}>LOL</button>
+								  <button className="ui olive basic button" onClick={this.addWMeh}>- meh -</button>
+								  <button className="ui red basic button" onClick={this.addWtf}>WTF?!</button>
+					      </div>
+					      <div style={showOwnVote}>
+					      	<i className="check icon"></i>121 Votes
+					      </div>
+					    </div>
+				      :
+				      <LoginBox />
+				    }
+				     
 				    </div>
 				  </div>
 				</div>
-				<div className="ui right attached rail">
-			    <Chart rat={this.props.rat}/>
-			  </div>
+				
 			</div>
 			)
 	}

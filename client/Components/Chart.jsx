@@ -1,18 +1,18 @@
 Chart = React.createClass({
 	svgDali(){
-		return parseInt((this.props.rat.dali)*18);
+		return Number((this.props.rat.dali)*18);
 	},
 	svgYessir(){
-		return parseInt((this.props.rat.yessir)*18);
+		return Number((this.props.rat.yessir)*18);
 	},
 	svgWtf(){
-		return parseInt((this.props.rat.wtf)*18);
+		return Number((this.props.rat.wtf)*18);
 	},
 	svgMeh(){
-		return parseInt((this.props.rat.meh)*18);
+		return Number((this.props.rat.meh)*18);
 	},
 	svgLol(){
-		return parseInt((this.props.rat.lol)*18);
+		return Number((this.props.rat.lol)*18);
 	},
 	render(){
 		return(
