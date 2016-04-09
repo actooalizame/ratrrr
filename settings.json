@@ -1,7 +1,7 @@
 {
   "galaxy.meteor.com": { 
      "env": { 
-       "ROOT_URL": "http://ratrrr.meteorapp.com", 
+       "ROOT_URL": "http://ratrak.meteorapp.com", 
        "MONGO_URL": "mongodb://gatosaurio:ratrrrc00l@ds015770.mlab.com:15770/ratrrrdb" 
      } 
    }

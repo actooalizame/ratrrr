@@ -33,6 +33,37 @@ Meteor.methods({
 			ratDate: data.ratDate,
 			ratedBy: []
 		});
+	},
+	'addDali': function(ratId){
+		Rats.update(
+			{ _id: ratId },
+			{$inc: {dali: 1}}
+		);
+	},
+	addYes: function(ratId){
+		Rats.update(
+			{ _id: ratId },
+			{$inc: {yessir: 1}}
+		);
+	},
+	addWtf: function(ratId){
+		Rats.update(
+			{ _id: ratId },
+			{$inc: {wtf: 1}}
+		);
+	},
+	addWMeh: function(ratId){
+		Rats.update(
+			{ _id: ratId },
+			{$inc: {meh: 1}}
+		);
+	},
+	addLol: function(ratId){
+		Rats.update(
+			{ _id: ratId },
+			{$inc: {lol: 1}}
+		);
 	}
+
 });
 
