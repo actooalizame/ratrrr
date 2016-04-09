@@ -1,50 +1,71 @@
 SingleRat = React.createClass({
 
-	addDali(){
-		let ratId = this.props.rat._id;
-		Meteor.call('addDali', ratId);
-		Session.set('currentId', ratId);
-	},
-	addYes(){
-		let ratId = this.props.rat._id;
-		Meteor.call('addYes', ratId);
-		Session.set('currentId', ratId);
-	},
-	addWtf(){
-		let ratId = this.props.rat._id;
-		Meteor.call('addWtf', ratId);
-		Session.set('currentId', ratId);
-	},
-	addWMeh(){
-		let ratId = this.props.rat._id;
-		Meteor.call('addWMeh', ratId);
-		Session.set('currentId', ratId);
-	},
-	addLol(){
-		let ratId = this.props.rat._id;
-		Meteor.call('addLol', ratId);
-		Session.set('currentId', ratId);
+	mixins: [ReactMeteorData],
+
+	getMeteorData(){
+		return {
+			userId: Meteor.userId(),
+			voters: this.props.rat.ratedBy
+		}
 	},
 
-	svgDali(){
-		return parseInt((this.props.rat.dali)*18);
+	addDali(){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addDali', ratId);
+		Meteor.call('addRatedBy',ratId,userId);
 	},
-	svgYessir(){
-		return parseInt((this.props.rat.yessir)*18);
+	addYes(){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addYes', ratId);
+		Meteor.call('addRatedBy',ratId,userId);
 	},
-	svgWtf(){
-		return parseInt((this.props.rat.wtf)*18);
+	addWtf(){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addWtf', ratId);
+		Meteor.call('addRatedBy',ratId,userId);
 	},
-	svgMeh(){
-		return parseInt((this.props.rat.meh)*18);
+	addWMeh(){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addWMeh', ratId);
+		Meteor.call('addRatedBy',ratId,userId);
 	},
-	svgLol(){
-		return parseInt((this.props.rat.lol)*18);
+	addLol(){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addLol', ratId);
+		Meteor.call('addRatedBy',ratId,userId);
+	},
+
+
+	hideVoted(){
+		let userId = this.data.userId,
+				voters = this.data.voters,
+				array = jQuery.inArray(userId,voters);
+		if(array>=0){
+			return {display:'none'};
+		}
+	},
+
+	showOwnVote(){
+		let userId = this.data.userId,
+				voters = this.data.voters,
+				array = jQuery.inArray(userId,voters);
+		if(array>=0){
+			return {display:'block'};
+		}
+		else{
+			return {display:'none'};
+		}
 	},
 
 	render(){
 		let link = 'https://twitter.com/Dig_it_Bitch_/status/'+this.props.rat.ratId,
-				negMargin = {marginLeft:-1.6};
+				hideVoted = this.hideVoted(),
+				showOwnVote = this.showOwnVote();
 		return(
 			<div className="ui segment">
 				<div className="ui cards">
@@ -61,45 +82,23 @@ SingleRat = React.createClass({
 				        <h5>{this.props.rat.ratText}</h5>
 				      </div>
 				    </div>
-				    <div className="extra content ui">
-				      <div className="card-buttons ui small icon buttons" style={negMargin}>
+				    <div className="extra content ui segment">
+				      <div className="card-buttons ui small icon buttons" style={hideVoted}>
 				        <button className="ui violet basic button" onClick={this.addDali}>DALÍ</button>
 							  <button className="ui teal basic button" onClick={this.addYes}>.YesSir.</button>
 							  <button className="ui orange basic button" onClick={this.addLol}>LOL</button>
 							  <button className="ui olive basic button" onClick={this.addWMeh}>- meh -</button>
 							  <button className="ui red basic button" onClick={this.addWtf}>WTF?!</button>
 				      </div>
+				      <div style={showOwnVote}>
+				      	<i className="check icon"></i>121 Votes
+				      </div>
+				      
 				    </div>
 				  </div>
 				</div>
 				<div className="ui right attached rail">
-			    <div className="ui segment">
-			      <h5><strong><img src="/images/levitation.png" alt=""/>
-			      	<svg xmlns="http://www.w3.org/2000/svg" height="8px" width="228px">
-								<rect x="5" y="0" height="10" width={this.svgDali()} fill="#5829bb" stroke="#5829bb" strokeWidth="10"></rect>
- 							</svg><span className="score">{this.props.rat.dali}</span></strong>
- 						</h5>
-			      <h5><strong><img src="/images/yes.png" alt=""/>
-			      	<svg xmlns="http://www.w3.org/2000/svg" height="8px" width="227px">
-								<rect x="5" y="0" height="10" width={this.svgYessir()} fill="#009c95" stroke="#009c95" strokeWidth="10"></rect>
- 							</svg><span className="score">{this.props.rat.yessir}</span></strong>
- 						</h5>
- 						<h5><strong><img src="/images/lol.png" alt=""/>
-			      	<svg xmlns="http://www.w3.org/2000/svg" height="8px" width="227px">
-								<rect x="5" y="0" height="10" width={this.svgLol()} fill="#f26202" stroke="#f26202" strokeWidth="10"></rect>
- 							</svg><span className="score">{this.props.rat.lol}</span></strong>
- 						</h5>
-			      <h5><strong><img src="/images/meh.png" alt=""/>
-			      	<svg xmlns="http://www.w3.org/2000/svg" height="8px" width="227px">
-								<rect x="5" y="0" height="10" width={this.svgMeh()} fill="#b5cc18" stroke="#b5cc18" strokeWidth="10"></rect>
- 							</svg><span className="score">{this.props.rat.meh}</span></strong>
- 						</h5>
-			      <h5><strong><img src="/images/devil.png" alt=""/>
-			      	<svg xmlns="http://www.w3.org/2000/svg" height="8px" width="227px">
-								<rect x="5" y="0" height="10" width={this.svgWtf()} fill="#db2828" stroke="#db2828" strokeWidth="10"></rect>
- 							</svg><span className="score">{this.props.rat.wtf}</span></strong>
- 						</h5>
-			    </div>
+			    <Chart rat={this.props.rat}/>
 			  </div>
 			</div>
 			)

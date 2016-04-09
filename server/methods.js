@@ -63,7 +63,13 @@ Meteor.methods({
 			{ _id: ratId },
 			{$inc: {lol: 1}}
 		);
-	}
+	},
+	'addRatedBy': function(ratId, userId){
+		Rats.update(
+			{	_id: ratId },
+			{$push: {ratedBy: userId} }
+		);
+	},
 
 });
 
