@@ -1,6 +1,8 @@
 Meteor.startup(function() {
-  Tracker.autorun(function() {
-    Meteor.subscribe('userArroba');
-  
+	/*if(Meteor.userId()!==null){
+		Tracker.autorun(function() {
+    	Meteor.subscribe('userArroba');
     });
+	}*/
+  
 });

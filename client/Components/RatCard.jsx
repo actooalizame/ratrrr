@@ -2,10 +2,9 @@ RatCard = React.createClass({
 	mixins: [ReactMeteorData],
 
 	getMeteorData(){
-		let ratId = this.props.rat._id,
-				arroba = Meteor.user().services.twitter.screenName;
-		Meteor.subscribe('ownReport',ratId,arroba);
-		let report = Reports.find({ratId:ratId,username:arroba}).fetch(),
+		let ratId = this.props.rat._id;
+		Meteor.subscribe('ownReport',ratId);
+		let report = Reports.find({ratId:ratId}).fetch(),
 				msg = report.map(function(a) {return a.msg;});
 		return {
 			userId: Meteor.userId(),
