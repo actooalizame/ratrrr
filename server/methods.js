@@ -70,6 +70,17 @@ Meteor.methods({
 			{$push: {ratedBy: userId} }
 		);
 	},
-
+	'addReport': function(ratId,msg){
+		var user = Meteor.users.findOne(this.userId),
+				arroba = user.services.twitter.screenName,
+				avatar = user.services.twitter.profile_image_url;
+		Reports.insert({
+			ratId: ratId,
+			username: arroba,
+			avatar: avatar,
+			msg: msg,
+			createdAt: new Date()
+		});
+	}
 });
 
