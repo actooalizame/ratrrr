@@ -3,9 +3,3 @@ Meteor.publish('userRats', function(){
 			twitterId = user.services.twitter.id;*/
 	return Rats.find({userId:'320046092'},{sort:{ratDate:-1},limit:11});
 });
-
-Meteor.publish('emojis', function() {
-  // Here you can choose to publish a subset of all emojis
-  // if you'd like to.
-  return Emojis.find();
-});

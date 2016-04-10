@@ -1,18 +1,23 @@
 Chart = React.createClass({
 	svgDali(){
-		return Number((this.props.rat.dali)*18);
+		let dali = this.props.rat.dali;
+		if(dali!==undefined){ return Number((dali)*18); }else{return 0;}
 	},
 	svgYessir(){
-		return Number((this.props.rat.yessir)*18);
+		let yessir = this.props.rat.yessir;
+		if(yessir!==undefined){ return Number((yessir)*18); }else{return 0;}
 	},
 	svgWtf(){
-		return Number((this.props.rat.wtf)*18);
+		let wtf = this.props.rat.wtf;
+		if(wtf!==undefined){ return Number((wtf)*18); }else{return 0;}
 	},
 	svgMeh(){
-		return Number((this.props.rat.meh)*18);
+		let meh = this.props.rat.meh;
+		if(meh!==undefined){ return Number((meh)*18); }else{return 0;}
 	},
 	svgLol(){
-		return Number((this.props.rat.lol)*18);
+		let lol = this.props.rat.lol;
+		if(lol!==undefined){ return Number((lol)*18); }else{return 0;}
 	},
 	render(){
 		return(

@@ -16,13 +16,13 @@ LoginBox = React.createClass({
 			  	<div className="content">
 			      <div className="center">
 			        <p className="ui icon header">
-			          <i className="heart icon" style={icon}></i>
-			          LoginToVote!
+			          <i className="unlock icon" style={icon}></i>
+			          SignInToVote!
 			        </p>
 			      </div>
 			    </div>
 			  </div>
-			  <div className="card-buttons ui small icon buttons">
+			  <div className="card-buttons-unlogged ui tiny icon buttons">
 	        <button className="ui violet disabled button">DALÍ</button>
 				  <button className="ui teal disabled button" >.YesSir.</button>
 				  <button className="ui orange disabled button">LOL</button>

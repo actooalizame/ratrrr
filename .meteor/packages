@@ -26,9 +26,6 @@ accounts-ui
 schiller:twit
 http
 meteorhacks:kadira
-highcharts:highcharts-meteor
 
 
 highcharts-container
-thereactivestack:blazetoreact
-lookback:emoji
