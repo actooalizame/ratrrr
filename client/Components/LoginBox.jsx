@@ -17,7 +17,7 @@ LoginBox = React.createClass({
 			      <div className="center">
 			        <p className="ui icon header">
 			          <i className="unlock icon" style={icon}></i>
-			          SignInToVote!
+			          SignInToRate!
 			        </p>
 			      </div>
 			    </div>

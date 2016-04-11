@@ -30,7 +30,7 @@ Meteor.methods({
 			userImg: data.userImg,
 			ratId: data.ratId,
 			ratText: data.ratText,
-			ratDate: data.ratDate,
+			ratDate: new Date(),
 			ratedBy: []
 		});
 	},
@@ -70,11 +70,13 @@ Meteor.methods({
 			{$push: {ratedBy: userId} }
 		);
 	},
-	'addReport': function(ratId,msg){
+	'addReport': function(ratId,userId,msg){
 		var user = Meteor.users.findOne(this.userId),
 				arroba = user.services.twitter.screenName,
-				avatar = user.services.twitter.profile_image_url;
+				avatar = user.services.twitter.profile_image_url,
+				userName = user.services.twitter.username;
 		Reports.insert({
+			userId: userId,
 			ratId: ratId,
 			username: arroba,
 			avatar: avatar,

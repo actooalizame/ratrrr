@@ -12,9 +12,9 @@ Meteor.publish('ratReports', function(ratId){
 
 if(this.userId!==undefined){
 	Meteor.publish('ownReport', function(ratId){
-	var user = Meteor.users.findOne({_id:this.userId}),
-			username = user.services.twitter.screenName;
-	return Reports.find({ratId:ratId,username:username},{limit:1});
+	/*var user = Meteor.users.findOne({_id:this.userId}),
+			username = user.services.twitter.screenName;*/
+	return Reports.find({ratId:ratId,userId:this.userId},{limit:1});
 });
 }
 

@@ -43,7 +43,7 @@ SingleReport = React.createClass({
 		      <div className="summary">
 		        <a className="user" href={link} target="_blank">
 		          {this.props.report.username}
-		        </a> {this.props.report.msg}
+		        </a>: {this.props.report.msg}
 		      </div>
 		    </div>
 		  </div>

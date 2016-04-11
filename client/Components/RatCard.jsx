@@ -1,57 +1,68 @@
 RatCard = React.createClass({
 	mixins: [ReactMeteorData],
+	
 
 	getMeteorData(){
-		let ratId = this.props.rat._id;
+		let userId = Meteor.userId()
+				ratId = this.props.rat._id,
+				userName = this.props.rat.userName;
 		Meteor.subscribe('ownReport',ratId);
-		let report = Reports.find({ratId:ratId}).fetch(),
+		let report = Reports.find({ratId:ratId,userId:userId}).fetch(),
 				msg = report.map(function(a) {return a.msg;});
 		return {
-			userId: Meteor.userId(),
+			userId: userId,
 			voters: this.props.rat.ratedBy,
 			ownVote: msg
 		}
 	},
 
+	cardColor(){
+		let msg = this.data.ownVote;
+		if(msg == 'DALI, Salvador: Dalí') {return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #5829bb, 0px 1px 3px 0px #d4d4d5"}}
+		if(msg == 'Yes Sir!'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #009c95, 0px 1px 3px 0px #d4d4d5"}}
+		if(msg == 'LOL MThFcK, lol'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #f26202, 0px 1px 3px 0px #d4d4d5"}}
+		if(msg == '...meh...'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #b5cc18, 0px 1px 3px 0px #d4d4d5"}}
+		if(msg == 'WTFuckk?!'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #db2828, 0px 1px 3px 0px #d4d4d5"}}
+	},
 	addDali(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId,
-				msg = '* kicks the sky *';
+				msg = 'DALI, Salvador: Dalí';
 		Meteor.call('addRatedBy',ratId,userId);
 		Meteor.call('addDali', ratId);
-		Meteor.call('addReport', ratId, msg);
+		Meteor.call('addReport', ratId,userId,msg);
 	},
 	addYes(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId,
-				msg = '* paddling out *';
+				msg = 'Yes Sir!';
 		Meteor.call('addRatedBy',ratId,userId);
 		Meteor.call('addYes', ratId);
-		Meteor.call('addReport', ratId, msg);		
+		Meteor.call('addReport', ratId,userId, msg);	
 	},
 	addWtf(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId,
-				msg = '* lying bitch *';
+				msg = 'WTFuckk?!';
 		Meteor.call('addRatedBy',ratId,userId);
 		Meteor.call('addWtf', ratId);
-		Meteor.call('addReport', ratId, msg);
+		Meteor.call('addReport', ratId,userId,msg);
 	},
 	addWMeh(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId,
-				msg = '* LAUGHS TOO HARD AT EVERYTHING *';
+				msg = '...meh...';
 		Meteor.call('addRatedBy',ratId,userId);
 		Meteor.call('addWMeh', ratId);
-		Meteor.call('addReport', ratId, msg);
+		Meteor.call('addReport', ratId,userId,msg);
 	},
 	addLol(){
 		let ratId = this.props.rat._id,
 				userId = this.data.userId,
-				msg = '* hUGO mOZART *';
+				msg = 'LOL MThFcK, lol';
 		Meteor.call('addRatedBy',ratId,userId);
 		Meteor.call('addLol', ratId);
-		Meteor.call('addReport', ratId, msg);
+		Meteor.call('addReport', ratId,userId,msg);
 	},
 
 
@@ -78,10 +89,11 @@ RatCard = React.createClass({
 	render(){
 		let link = 'https://twitter.com/Dig_it_Bitch_/status/'+this.props.rat.ratId,
 				hideVoted = this.hideVoted(),
-				showOwnVote = this.showOwnVote();
+				showOwnVote = this.showOwnVote(),
+				cardColor = this.cardColor();
 		return(
 			<div className="ui cards">
-			  <div className="card" id="ratCard">
+			  <div className="card" id="ratCard" style={cardColor}>
 			    <div className="content">
 			      <img className="right floated mini ui image" src={this.props.rat.userImg} />
 			      <div className="header">
