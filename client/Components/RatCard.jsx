@@ -24,47 +24,14 @@ RatCard = React.createClass({
 		if(msg == '...meh...'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #b5cc18, 0px 1px 3px 0px #d4d4d5"}}
 		if(msg == 'WTFuckk?!'){return {boxShadow: "0px 0px 0px 1px #d4d4d5, 0px 2px 6px 0px #db2828, 0px 1px 3px 0px #d4d4d5"}}
 	},
-	addDali(){
-		let ratId = this.props.rat._id,
-				userId = this.data.userId,
-				msg = 'DALI, Salvador: Dalí';
-		Meteor.call('addRatedBy',ratId,userId);
-		Meteor.call('addDali', ratId);
-		Meteor.call('addReport', ratId,userId,msg);
-	},
-	addYes(){
-		let ratId = this.props.rat._id,
-				userId = this.data.userId,
-				msg = 'Yes Sir!';
-		Meteor.call('addRatedBy',ratId,userId);
-		Meteor.call('addYes', ratId);
-		Meteor.call('addReport', ratId,userId, msg);	
-	},
-	addWtf(){
-		let ratId = this.props.rat._id,
-				userId = this.data.userId,
-				msg = 'WTFuckk?!';
-		Meteor.call('addRatedBy',ratId,userId);
-		Meteor.call('addWtf', ratId);
-		Meteor.call('addReport', ratId,userId,msg);
-	},
-	addWMeh(){
-		let ratId = this.props.rat._id,
-				userId = this.data.userId,
-				msg = '...meh...';
-		Meteor.call('addRatedBy',ratId,userId);
-		Meteor.call('addWMeh', ratId);
-		Meteor.call('addReport', ratId,userId,msg);
-	},
-	addLol(){
-		let ratId = this.props.rat._id,
-				userId = this.data.userId,
-				msg = 'LOL MThFcK, lol';
-		Meteor.call('addRatedBy',ratId,userId);
-		Meteor.call('addLol', ratId);
-		Meteor.call('addReport', ratId,userId,msg);
-	},
 
+	addRat(elem,msg){
+		let ratId = this.props.rat._id,
+				userId = this.data.userId;
+		Meteor.call('addRat',ratId,elem);
+		Meteor.call('addRatedBy',ratId,userId);
+		Meteor.call('addReport', ratId,userId,msg); 
+	},
 
 	hideVoted(){
 		let userId = this.data.userId,
@@ -110,11 +77,11 @@ RatCard = React.createClass({
 			    {this.data.userId ?
 			    	<div>
 				    	 <div className="card-buttons ui small icon buttons" style={hideVoted}>
-				        <button className="ui violet basic button" onClick={this.addDali}>DALÍ</button>
-							  <button className="ui teal basic button" onClick={this.addYes}>.YesSir.</button>
-							  <button className="ui orange basic button" onClick={this.addLol}>LOL</button>
-							  <button className="ui olive basic button" onClick={this.addWMeh}>- meh -</button>
-							  <button className="ui red basic button" onClick={this.addWtf}>WTF?!</button>
+				        <button className="ui violet basic button" onClick={()=>this.addRat('dali','DALI, Salvador: Dalí')}>DALÍ</button>
+							  <button className="ui teal basic button" onClick={()=>this.addRat('yessir','Yes Sir!')}>.YesSir.</button>
+							  <button className="ui orange basic button" onClick={()=>this.addRat('lol','LOL MThFcK, lol')}>LOL</button>
+							  <button className="ui olive basic button" onClick={()=>this.addRat('meh','...meh...')}>- meh -</button>
+							  <button className="ui red basic button" onClick={()=>this.addRat('wtf','WTFuckk?!')}>WTF?!</button>
 				      </div>
 				      <div style={showOwnVote}>
 				      	<i className="check icon"></i>{this.data.ownVote}

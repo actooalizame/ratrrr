@@ -34,34 +34,14 @@ Meteor.methods({
 			ratedBy: []
 		});
 	},
-	'addDali': function(ratId){
+
+	'addRat': function(ratId,elem){
+		var category = elem,
+				action = {};
+		action[category] = 1;
 		Rats.update(
 			{ _id: ratId },
-			{$inc: {dali: 1}}
-		);
-	},
-	addYes: function(ratId){
-		Rats.update(
-			{ _id: ratId },
-			{$inc: {yessir: 1}}
-		);
-	},
-	addWtf: function(ratId){
-		Rats.update(
-			{ _id: ratId },
-			{$inc: {wtf: 1}}
-		);
-	},
-	addWMeh: function(ratId){
-		Rats.update(
-			{ _id: ratId },
-			{$inc: {meh: 1}}
-		);
-	},
-	addLol: function(ratId){
-		Rats.update(
-			{ _id: ratId },
-			{$inc: {lol: 1}}
+			{$inc: action}
 		);
 	},
 	'addRatedBy': function(ratId, userId){
@@ -73,8 +53,7 @@ Meteor.methods({
 	'addReport': function(ratId,userId,msg){
 		var user = Meteor.users.findOne(this.userId),
 				arroba = user.services.twitter.screenName,
-				avatar = user.services.twitter.profile_image_url,
-				userName = user.services.twitter.username;
+				avatar = user.services.twitter.profile_image_url;
 		Reports.insert({
 			userId: userId,
 			ratId: ratId,
